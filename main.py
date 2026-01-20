@@ -63,7 +63,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         response = f"сам пошел нахуй пидр"
     elif 'бот' in user_text.lower():
         response = f"ты кого нахуй ботом назвал"
-    else:
+    
         
     
     await update.message.reply_text(response)
