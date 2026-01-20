@@ -30,9 +30,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     welcome_text = f"""
 Привет, {user.first_name}! 👋
 
-Это бот со слотами от Меллстроя.
+Я твой Telegram-бот на Python! 🚀
 
-Нажимай на кнопку и ебашь в казик
+Доступные команды:
+/start - начальное приветствие
+/help - помощь по командам
+
+Напиши мне что-нибудь, и я отвечу! 😊
     """
     await update.message.reply_text(welcome_text)
 
@@ -40,12 +44,36 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Обработчик команды /help"""
     help_text = """
-Хули ты хэлп нажал? Непонятно объсянил нахуй?
+📚 Доступные команды:
+
+/start - Начать работу с ботом
+/help - Показать это сообщение
+
+🤖 Просто напиши мне любое сообщение, и я отвечу!
     """
     await update.message.reply_text(help_text)
 
-# Ответ на текстовые сообщения
-
+# ✅ Функция echo (исправляет ошибку)
+async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Эхо-ответ на текстовые сообщения"""
+    user_text = update.message.text
+    
+    # Простой эхо-ответ
+    response = f"Вы написали: '{user_text}'"
+    
+    # Или более полезный ответ
+    if 'привет' in user_text.lower():
+        response = f"И тебе привет, {update.effective_user.first_name}! 👋"
+    elif 'как дела' in user_text.lower():
+        response = f"У бота всё отлично! А у вас, {update.effective_user.first_name}?"
+    elif 'спасибо' in user_text.lower():
+        response = f"Пожалуйста! Рад помочь! 😊"
+    elif 'бот' in user_text.lower():
+        response = f"Да, я здесь! Чем могу помочь? 🤖"
+    else:
+        response = f"Вы написали: '{user_text}'\nПопробуйте команду /help для списка команд"
+    
+    await update.message.reply_text(response)
 
 # Обработка ошибок
 async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -53,7 +81,7 @@ async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     logger.error(f"Ошибка при обработке обновления {update}: {context.error}")
 
 def main():
-    """загрузка"""
+    """Основная функция запуска бота"""
     # Создаем приложение
     application = Application.builder().token(TOKEN).build()
     
@@ -61,8 +89,9 @@ def main():
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
     
-    # Регистрируем обработчик текстовых сообщений
-    
+    # ✅ Теперь echo определена и работает
+    application.add_handler(MessageHandler(
+        filters.TEXT & ~filters.COMMAND, echo
     ))
     
     # Регистрируем обработчик ошибок
