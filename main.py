@@ -62,8 +62,7 @@ def main():
     application.add_handler(CommandHandler("help", help_command))
     
     # Регистрируем обработчик текстовых сообщений
-    application.add_handler(MessageHandler(
-        filters.TEXT & ~filters.COMMAND, echo
+    
     ))
     
     # Регистрируем обработчик ошибок
