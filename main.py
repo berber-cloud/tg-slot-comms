@@ -30,13 +30,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     welcome_text = f"""
 Привет, {user.first_name}! 👋
 
-Я твой Telegram-бот на Python! 🚀
+Это бот-казино от Меллстроя
 
-Доступные команды:
-/start - начальное приветствие
-/help - помощь по командам
+Нажимай кнопку "слоты" и ебашь
 
-Напиши мне что-нибудь, и я отвечу! 😊
+/help
     """
     await update.message.reply_text(welcome_text)
 
@@ -44,12 +42,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Обработчик команды /help"""
     help_text = """
-📚 Доступные команды:
-
-/start - Начать работу с ботом
-/help - Показать это сообщение
-
-🤖 Просто напиши мне любое сообщение, и я отвечу!
+Хули ты хэлп нажал, непонятно объяснил нахуй?
     """
     await update.message.reply_text(help_text)
 
@@ -63,15 +56,15 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     # Или более полезный ответ
     if 'привет' in user_text.lower():
-        response = f"И тебе привет, {update.effective_user.first_name}! 👋"
+        response = f"Гамарджоба, {update.effective_user.first_name}! 👋"
     elif 'как дела' in user_text.lower():
-        response = f"У бота всё отлично! А у вас, {update.effective_user.first_name}?"
-    elif 'спасибо' in user_text.lower():
-        response = f"Пожалуйста! Рад помочь! 😊"
+        response = f"ахуенно"
+    elif 'иди нахуй' in user_text.lower():
+        response = f"сам пошел нахуй пидр"
     elif 'бот' in user_text.lower():
-        response = f"Да, я здесь! Чем могу помочь? 🤖"
+        response = f"ты кого нахуй ботом назвал"
     else:
-        response = f"Вы написали: '{user_text}'\nПопробуйте команду /help для списка команд"
+        
     
     await update.message.reply_text(response)
 
